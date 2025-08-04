@@ -65,6 +65,7 @@ class Order(models.Model):
     def __str__(self):
         return f"Pedido: {self.id} - {self.client.name} - {self.product.name}"
 
+
 class Invoice(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="Pedido")
     number = models.CharField(max_length=5, unique=True, verbose_name="Número")
