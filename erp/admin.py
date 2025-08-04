@@ -1,5 +1,5 @@
 from django.contrib import admin
-from erp.models import Client, Product, Sale, SaleItem, Invoice, Payment
+from erp.models import Client, Product, Order, Invoice
 
 
 @admin.register(Client)
@@ -18,40 +18,18 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = '-id',
 
 
-@admin.register(Sale)
-class SaleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'client', 'created_at', 'total_amount', 'payment_method', 'status',]
-    search_fields = ['id', 'client',]
-    list_filter = ['id', 'client',]
-    ordering = '-id',
-
-
-@admin.register(SaleItem)
-class SaleItemAdmin(admin.ModelAdmin):
-    list_display = ['id', 'sale', 'product', 'quantity', 'unit_price',]
-    search_fields = ['id', 'sale', 'product',]
-    list_filter = ['id', 'sale', 'product',]
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'client', 'product', 'created_at', 'payment_method', 'status',]
+    search_fields = ['id', 'client', 'product',]
+    list_filter = ['id', 'client', 'product',]
     ordering = '-id',
 
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'sale', 'number', 'issue_data', 'due_data', 'amount', 'sent',]
-    search_fields = ['id', 'sale', 'issue_data', 'due_data', 'sent',]
-    list_filter = ['id', 'sale', 'issue_data', 'due_data', 'sent',]
+    list_display = ['id', 'order', 'number', 'issue_data', 'due_data', 'sent',]
+    search_fields = ['id', 'order', 'number', 'issue_data', 'due_data', 'sent',]
+    list_filter = ['id', 'order', 'number', 'issue_data', 'due_data', 'sent',]
+    list_editable = ['sent',]
     ordering = '-id',
-
-
-@admin.register(Payment)
-class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'invoice', 'payment_data', 'amount', 'method_payment', 'confirmed',]
-    search_fields = ['id', 'invoice', 'payment_data', 'method_payment', 'confirmed',]
-    list_filter = ['id', 'invoice', 'payment_data', 'method_payment', 'confirmed',]
-    ordering = '-id',
-
-
-
-
-
-
-
