@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'erp',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -142,8 +146,7 @@ REST_FRAMEWORK = {
 
 CELERY_RESULT_BACKEND = 'django-db'
 
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:567//'
 
 CELERY_TIMEZONE = 'America/Sao_Paulo'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
