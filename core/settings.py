@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # django rest framework
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_spectacular',
     # app
     'django_celery_results',
     'django_celery_beat',
@@ -141,6 +142,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS':[
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
