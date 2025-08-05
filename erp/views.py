@@ -35,6 +35,7 @@ class OrderApiV1View(ModelViewSet):
     def perform_create(self, serializer):
         order = serializer.save()
 
+        # Disparar task assíncrona com Celery
         send_order_email_task.delay(
             order.client.name,
             order.client.email,
@@ -44,10 +45,6 @@ class OrderApiV1View(ModelViewSet):
             order.get_status_display(),
         )
 
-        return response.Response(
-            data={'message': 'Tarefa Disparada com Sucesso.',},
-            status=status.HTTP_200_OK,
-        )
 
 
 class InvoiceApiV1View(ModelViewSet):
