@@ -22,9 +22,19 @@ pip install -r requirements.txt
 
 ## Rodar o projeto
 
+Git clone:
+```bash
+https://github.com/Joao-Batista-Dev/ERP---Sistema-de-Gestao/
+```
+
+Entre no diretório do projeto
+```bash
+cd erp
+```
+
 Exercute o docker:
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 Criando um usuário admin:
