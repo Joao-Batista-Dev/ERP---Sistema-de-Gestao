@@ -4,6 +4,7 @@ from erp.serializers import ClientSerializer, ProductSerializer, OrderSerializer
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from erp.filters import ClientFilter, ProductFilter, OrderFilters, InvoiceFilter
+from erp.tasks import send_order_email_task
 
 
 class ClientApiV1Views(ModelViewSet):
@@ -28,6 +29,18 @@ class OrderApiV1View(ModelViewSet):
     permission_classes = [IsAuthenticated,]
     filter_backends = [DjangoFilterBackend,]
     filterset_class = OrderFilters
+
+    def perform_create(self, serializer):
+        order = serializer.save()
+
+        send_order_email_task.delay(
+            order.client.name,
+            order.client.email,
+            order.product.name,
+            order.created_at.strftime('%d/%m/%Y %H:%M'),
+            order.get_payment_method_display(),
+            order.get_status_display(),
+        )
 
 
 class InvoiceApiV1View(ModelViewSet):

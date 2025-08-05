@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     # app
+    'django_celery_results',
+    'django_celery_beat',
     'authentication',
     'django_filters',
     'erp',
@@ -136,3 +138,10 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
 }
+
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+
+CELERY_TIMEZONE = 'America/Sao_Paulo'
