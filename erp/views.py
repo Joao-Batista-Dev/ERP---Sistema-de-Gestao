@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from erp.filters import ClientFilter, ProductFilter, OrderFilters, InvoiceFilter
 from erp.tasks import send_order_email_task
+from rest_framework import response
+from rest_framework import status
 
 
 class ClientApiV1Views(ModelViewSet):
@@ -40,6 +42,11 @@ class OrderApiV1View(ModelViewSet):
             order.created_at.strftime('%d/%m/%Y %H:%M'),
             order.get_payment_method_display(),
             order.get_status_display(),
+        )
+
+        return response.Response(
+            data={'message': 'Tarefa Disparada com Sucesso.',},
+            status=status.HTTP_200_OK,
         )
 
 

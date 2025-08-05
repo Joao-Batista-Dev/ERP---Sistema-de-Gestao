@@ -145,3 +145,5 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
 CELERY_TIMEZONE = 'America/Sao_Paulo'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
